@@ -3,7 +3,7 @@
 import { Progress } from "@heroui/react";
 import { Card, CardBody } from "@heroui/react";
 import { Avatar } from "@heroui/react";
-import { Badge } from "@heroui/react";
+import Link from "next/link";
 
 const tasks = ["Task 1", "Task 2", "Task 3", "Task 4", "Task 5"];
 const achievements = ["Achievement 1", "Achievement 2", "Achievement 3"];
@@ -13,12 +13,12 @@ export default function DashboardPage() {
     <div className="flex h-screen bg-slate-100 text-gray-800">
       {/* Sidebar */}
       <aside className="w-60 bg-slate-200 p-4 flex flex-col gap-4">
-        <button className="text-left px-2 py-2 hover:bg-slate-300 rounded">DASHBOARD</button>
-        <button className="text-left px-2 py-2 hover:bg-slate-300 rounded">TASKS</button>
-        <button className="text-left px-2 py-2 hover:bg-slate-300 rounded">LEADERBOARD</button>
-        <button className="text-left px-2 py-2 hover:bg-slate-300 rounded">ACHIEVEMENTS</button>
-        <button className="text-left px-2 py-2 hover:bg-slate-300 rounded">PROFILE</button>
-      </aside>
+      <Link href="/" className="px-2 py-2 hover:bg-slate-300 rounded">DASHBOARD</Link>
+      <Link href="/tasks" className="px-2 py-2 hover:bg-slate-300 rounded">TASKS</Link>
+      <Link href="/leaderboard" className="px-2 py-2 hover:bg-slate-300 rounded">LEADERBOARD</Link>
+      <Link href="/achievements" className="px-2 py-2 hover:bg-slate-300 rounded">ACHIEVEMENTS</Link>
+      <Link href="/profile" className="px-2 py-2 hover:bg-slate-300 rounded">PROFILE</Link>
+    </aside>
 
       {/* Main Content */}
       <main className="flex-1 p-6 flex flex-col gap-6">
@@ -51,7 +51,7 @@ export default function DashboardPage() {
           {/* Avatar + Achievements */}
           <div className="w-80 flex flex-col items-center">
             <Avatar
-              src="/wizard.png"
+              src="/avatars/wizard.png"
               alt="Wizard Avatar"
               className="w-40 h-40 mb-4"
             />
