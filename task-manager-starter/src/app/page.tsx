@@ -1,12 +1,9 @@
 import { Progress } from "@heroui/react";
 import { Card, CardBody } from "@heroui/react";
 import { Avatar } from "@heroui/react";
-<<<<<<< HEAD
 // import { getServerSession } from "next-auth";
 import Link from "next/link";
-=======
 import Sidebar from "@/components/sidebar/page";
->>>>>>> 78ea912551487d25e68a6e496f2c6c4660b90e02
 
 // import options from "@/config/auth";
 
