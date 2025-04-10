@@ -2,8 +2,9 @@
 
 import Sidebar from "@/components/sidebar/page";
 import { Card, CardBody } from "@heroui/react";
+import { Progress } from "@heroui/react";
 
-const tasks = ["Task 1", "Task 2", "Task 3", "Task 4", "Task 5"];
+const tasks = ["Task 1", "Task 2", "Task 3", "Task 4", "Task 5", "Task 6"];
 
 export default function TasksPage() {
   return (
