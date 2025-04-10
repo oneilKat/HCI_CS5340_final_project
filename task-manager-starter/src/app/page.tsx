@@ -1,14 +1,17 @@
-"use client";
-
 import { Progress } from "@heroui/react";
 import { Card, CardBody } from "@heroui/react";
 import { Avatar } from "@heroui/react";
+// import { getServerSession } from "next-auth";
 import Link from "next/link";
+
+// import options from "@/config/auth";
 
 const tasks = ["Task 1", "Task 2", "Task 3", "Task 4", "Task 5"];
 const achievements = ["Achievement 1", "Achievement 2", "Achievement 3"];
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  // const session = await getServerSession(options);
+  
   return (
     <div className="flex h-screen bg-slate-100 text-gray-800">
       {/* Sidebar */}
@@ -25,7 +28,7 @@ export default function DashboardPage() {
         {/* Level Bar */}
         <div className="flex justify-between items-center">
           <div className="w-1/2">
-            <div className="text-sm font-semibold">LEVEL 3</div>
+            <div className="text-sm font-semibold">LEVEL 1</div>
             <Progress value={90} className="w-full mt-1" />
             <div className="text-xs mt-1 text-right text-gray-600">450 XP / 500 XP</div>
           </div>

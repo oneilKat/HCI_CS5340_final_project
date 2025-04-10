@@ -1,5 +1,5 @@
 {
-  "id": "6e31c9bc-6b4a-4909-a1f5-65234f5cd986",
+  "id": "3ea09286-34bf-43ff-a207-b8943f569bb0",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -179,9 +179,24 @@
         },
         "level": {
           "name": "level",
-          "type": "varchar(255)",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": 1
+        },
+        "role": {
+          "name": "role",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'employee'"
+        },
+        "xp": {
+          "name": "xp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
         }
       },
       "indexes": {},

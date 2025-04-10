@@ -19,6 +19,7 @@ export default async function Profile() {
             src: session?.user?.image || "",
           }}
         />
+        <p>Level {session?.user?.level}</p>
       </CardBody>
     </Card>
   );

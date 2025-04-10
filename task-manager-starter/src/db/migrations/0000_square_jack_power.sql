@@ -24,7 +24,9 @@ CREATE TABLE "user" (
 	"email" varchar(320) NOT NULL,
 	"emailVerified" timestamp,
 	"image" varchar(2048) NOT NULL,
-	"level" varchar(255) NOT NULL,
+	"level" integer DEFAULT 1 NOT NULL,
+	"role" varchar(50) DEFAULT 'employee' NOT NULL,
+	"xp" integer DEFAULT 0 NOT NULL,
 	CONSTRAINT "user_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
