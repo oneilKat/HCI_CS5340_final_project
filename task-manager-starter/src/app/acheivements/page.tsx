@@ -4,7 +4,7 @@ import { Progress } from "@heroui/react";
 import { Card, CardBody } from "@heroui/react";
 import { Avatar } from "@heroui/react";
 
-export default function AchievementsPage() {
+export default function AcheivementsPage() {
   return (
     <div className="flex h-screen bg-slate-100 text-gray-800">
       {/* Sidebar */}
