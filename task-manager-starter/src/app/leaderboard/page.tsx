@@ -1,21 +1,33 @@
 "use client";
 
-import { Progress } from "@heroui/react";
-import { Card, CardBody } from "@heroui/react";
-import { Avatar } from "@heroui/react";
 import Sidebar from "@/components/sidebar/page";
+import { Card, CardBody } from "@heroui/react";
 
-export default function LeaderboardPage() {
+const team = ["Kathryn", "Justin", "Ahri", "Cody", "Saiph"];
+const score = ["5000", "5000", "5000", "5000", "5000"];
+
+export default function LeaderBoardPage() {
   return (
-    <div className="flex h-screen bg-slate-100 text-gray-800">
+    <div className="flex min-h-screen bg-slate-100 text-gray-800">
       <Sidebar />
 
-     {/* Main Content */}
-     <main className="flex-1 p-6 flex flex-col gap-6">
-      <div className="flex gap-6">
-        {/* Avatar + Achievements */}
-      </div>
-    </main>
-  </div>
+      <main className="flex-1 p-6 flex flex-col gap-6">
+        <div className="flex gap-6">
+          <div className="flex-1">
+            <h2 className="text-xl font-semibold mb-2">LEADERBOARD</h2>
+            <div className="flex flex-col gap-3">
+              {team.map((member, index) => (
+                <Card key={index}>
+                  <CardBody className="flex justify-between p-4">
+                    <span>🏅 {member}</span>
+                    <span className="text-sm text-gray-600 font-medium">Score: {score[index]}</span>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
   );
 }
