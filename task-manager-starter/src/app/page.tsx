@@ -2,6 +2,7 @@ import { Card, CardBody } from "@heroui/react";
 import { Avatar } from "@heroui/react";
 // import { getServerSession } from "next-auth";
 import Sidebar from "@/components/sidebar/page";
+import { Progress } from "@heroui/react";
 
 // import options from "@/config/auth";
 
