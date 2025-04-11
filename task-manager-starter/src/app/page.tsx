@@ -1,13 +1,12 @@
-import { Progress } from "@heroui/react";
 import { Card, CardBody } from "@heroui/react";
 import { Avatar } from "@heroui/react";
 // import { getServerSession } from "next-auth";
-import Link from "next/link";
 import Sidebar from "@/components/sidebar/page";
+import { Progress } from "@heroui/react";
 
 // import options from "@/config/auth";
 
-const tasks = ["Task 1", "Task 2", "Task 3", "Task 4", "Task 5"];
+const tasks = ["Task 1", "Task 2", "Task 3", "Task 4", "Task 5", "Task 6"];
 const achievements = ["Achievement 1", "Achievement 2", "Achievement 3"];
 
 export default async function DashboardPage() {
