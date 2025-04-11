@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 
 import db from "@/db";
 import { env } from "@/env/server";
+import { getUserByEmail } from "@/lib/db";
 
 const options: NextAuthOptions = {
   pages: {
@@ -19,22 +20,28 @@ const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user?: any }) {
+      console.log("[jwt callback] user:", user);
       if (user) {
-        const dbUser = await db.select().from(users).where(eq(users.id, user?.id)).limit(1);
+        const dbUser = await getUserByEmail(user.email);
+        console.log("[jwt callback] dbUser:", dbUser);
         token.level = dbUser.level;
       }
       return token;
     },
 
-    async session({ session, token}) {
+    async session({ session, token}: { session: any; token: any }) {
+      console.log("[session callback] token:", token);
       if (token?.level) {
         session.user.level = token.level;
       } 
-      return session;
+      return session; 
     }
 
-},
+  },
+  session: {
+    strategy: "jwt",
+  }
 };
 
 export default options;
