@@ -1,10 +1,13 @@
 "use client";
+import { getAvatars } from '@/utils/getAvatars'
 
 import Sidebar from "@/components/sidebar/page";
 import { Card, CardBody } from "@heroui/react";
 import { Progress } from "@heroui/react";
+import Image from "next/image";
 
 const achievements = ["Badge 1", "Badge 2", "Badge 3", "Badge 4", "Badge 5"];
+const avatars = getAvatars();
 
 export default function TasksPage() {
   return (
@@ -34,6 +37,27 @@ export default function TasksPage() {
                 </Card>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Avatars Section */}
+        <div className="mt-8">
+          <h2 className="text-xl font-semibold mb-4">Available Avatars</h2>
+          <div className="grid grid-cols-5 gap-6">
+            {avatars.map((avatar, index) => (
+              <div key={index} className="flex flex-col items-center">
+                <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-purple-400 hover:border-purple-600 transition-colors">
+                  <Image
+                    src={avatar.image}
+                    alt={avatar.name}
+                    width={96}
+                    height={96}
+                    className="object-cover"
+                  />
+                </div>
+                <span className="mt-2 text-sm font-medium text-center">{avatar.name}</span>
+              </div>
+            ))}
           </div>
         </div>
       </main>
