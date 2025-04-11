@@ -1,4 +1,5 @@
-// components/Sidebar.jsx
+// components/Sidebar.tsx or Sidebar.jsx
+"use client";
 import Link from "next/link";
 
 export default function Sidebar() {
@@ -9,6 +10,7 @@ export default function Sidebar() {
       <Link href="/leaderboard" className="px-2 py-2 hover:bg-slate-300 rounded">LEADERBOARD</Link>
       <Link href="/achievements" className="px-2 py-2 hover:bg-slate-300 rounded">ACHIEVEMENTS</Link>
       <Link href="/profile" className="px-2 py-2 hover:bg-slate-300 rounded">PROFILE</Link>
+      <Link href="/acc" className="px-2 py-2 hover:bg-slate-300 rounded">ACCOUNT</Link>
     </aside>
   );
 }
