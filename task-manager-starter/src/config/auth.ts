@@ -26,6 +26,7 @@ const options: NextAuthOptions = {
         const dbUser = await getUserByEmail(user.email);
         console.log("[jwt callback] dbUser:", dbUser);
         token.level = dbUser.level;
+        token.xp = dbUser.xp;
       }
       return token;
     },
@@ -35,6 +36,9 @@ const options: NextAuthOptions = {
       if (token?.level) {
         session.user.level = token.level;
       } 
+      if (token?.xp) {
+        session.user.xp = token.xp;
+      }
       return session; 
     }
 
