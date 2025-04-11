@@ -10,18 +10,21 @@ const today = new Date().toISOString().split("T")[0];
 type Task = {
   id: string;
   title: string;
-  dueDate: string; // ISO date string (e.g., "2025-04-10")
+  dueDate: string;
   completed: boolean;
   previousDueDate?: string;
+  priority: number;
+  xp: number;
 };
 
 const initialTasks: Task[] = [
-  { id: "1", title: "Task 1", dueDate: "2025-04-10", completed: false },
-  { id: "2", title: "Task 2", dueDate: "2025-04-10", completed: false },
-  { id: "3", title: "Task 3", dueDate: "2025-04-11", completed: false },
-  { id: "4", title: "Task 4", dueDate: "2025-04-12", completed: false },
-  { id: "5", title: "Task 5", dueDate: "2025-04-09", completed: false },
-  { id: "6", title: "Task 6", dueDate: "2025-04-08", completed: false },
+  { id: "1", title: "Task 1", dueDate: "2025-04-10", completed: false, priority: 2, xp: 50 },
+  { id: "2", title: "Task 2", dueDate: "2025-04-10", completed: false, priority: 1, xp: 30 },
+  { id: "3", title: "Task 3", dueDate: "2025-04-11", completed: false, priority: 3, xp: 70 },
+  { id: "4", title: "Task 4", dueDate: "2025-04-12", completed: false, priority: 2, xp: 40 },
+  { id: "5", title: "Task 5", dueDate: "2025-04-09", completed: false, priority: 3, xp: 60 },
+  { id: "6", title: "Task 6", dueDate: "2025-04-11", completed: false, priority: 2, xp: 35 },
+  { id: "7", title: "Task 7", dueDate: "2025-04-11", completed: false, priority: 1, xp: 20 },
 ];
 
 export default function TasksPage() {
@@ -90,7 +93,9 @@ export default function TasksPage() {
             {task.title}
           </span>
         </div>
+        <span className="text-sm text-red-500">Priority: {task.priority}</span>
         <span className="text-sm text-gray-500">Due: {task.dueDate}</span>
+        <span className="text-lg text-blue-500">{task.xp} XP</span>
       </CardBody>
     </Card>
   );
@@ -102,6 +107,7 @@ export default function TasksPage() {
         <div className="flex flex-col gap-3">
           {tasks
             .filter(filterFn)
+            .sort((a, b) => a.priority - b.priority)
             .map((task) => (
               <TaskCheckbox key={task.id} task={task} />
             ))}
