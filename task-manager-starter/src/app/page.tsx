@@ -18,13 +18,13 @@ type Task = {
 const today = new Date().toISOString().split("T")[0];
 
 const initialTasks: Task[] = [
-  { id: "1", title: "Task 1", dueDate: "2025-04-10", completed: false, priority: 2, xp: 50 },
-  { id: "2", title: "Task 2", dueDate: "2025-04-10", completed: false, priority: 1, xp: 30 },
+  { id: "1", title: "Task 1", dueDate: "2025-04-12", completed: false, priority: 2, xp: 50 },
+  { id: "2", title: "Task 2", dueDate: "2025-04-12", completed: false, priority: 1, xp: 30 },
   { id: "3", title: "Task 3", dueDate: "2025-04-12", completed: false, priority: 3, xp: 70 },
   { id: "4", title: "Task 4", dueDate: "2025-04-12", completed: false, priority: 2, xp: 40 },
   { id: "5", title: "Task 5", dueDate: "2025-04-12", completed: false, priority: 3, xp: 60 },
-  { id: "6", title: "Task 6", dueDate: "2025-04-11", completed: false, priority: 2, xp: 35 },
-  { id: "7", title: "Task 7", dueDate: "2025-04-11", completed: false, priority: 1, xp: 20 },
+  { id: "6", title: "Task 6", dueDate: "2025-04-12", completed: false, priority: 2, xp: 35 },
+  { id: "7", title: "Task 7", dueDate: "2025-04-12", completed: false, priority: 1, xp: 20 },
 ];
 
 const achievements = ["Achievement 1", "Achievement 2", "Achievement 3"];
@@ -103,7 +103,7 @@ export default function DashboardPage() {
   const todaysTasks = tasks.filter((t) => t.dueDate === today && !t.completed);
 
   return (
-    <div className="flex h-screen bg-slate-100 text-gray-800">
+    <div className="flex min-h-screen bg-slate-100 text-gray-800">
       {showConfetti && (
         <Confetti
           width={windowSize.width}
