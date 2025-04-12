@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Sidebar from "@/components/sidebar/page";
 import { Card, CardBody } from "@heroui/react";
 import Confetti from "react-confetti";
+import Levelbar from "@/components/levelbar";
 
 const today = new Date().toISOString().split("T")[0];
 
@@ -130,6 +131,7 @@ export default function TasksPage() {
       )}
       <Sidebar />
       <main className="flex-1 p-6 flex flex-col gap-6">
+      <Levelbar />
         {renderSection("TODAY'S TASKS", (task) => task.dueDate === today && !task.completed)}
         {renderSection("FUTURE TASKS", (task) => task.dueDate > today && !task.completed)}
         {renderSection("PAST DUE TASKS", (task) => task.dueDate < today && !task.completed)}

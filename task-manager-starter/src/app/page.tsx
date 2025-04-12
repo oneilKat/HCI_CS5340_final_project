@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { Card, CardBody, Progress, Avatar } from "@heroui/react";
 import Sidebar from "@/components/sidebar/page";
+import Levelbar from "@/components/levelbar";
 import Confetti from "react-confetti";
+
 
 type Task = {
   id: string;
@@ -118,48 +120,40 @@ export default function DashboardPage() {
       <Sidebar />
 
       <main className="flex-1 p-6 flex flex-col gap-6">
-        {/* Level Bar */}
-        <div className="flex justify-between items-center">
-          <div className="w-1/2">
-            <div className="text-sm font-semibold">LEVEL 1</div>
-            <Progress value={90} className="w-full mt-1" />
-            <div className="text-xs mt-1 text-right text-gray-600">450 XP / 500 XP</div>
+        <Levelbar />
+
+        <div className="flex gap-6">
+  
+      {/* Today’s Tasks */}
+      <div className="flex-[0.65]">
+        <h2 className="text-xl font-semibold mb-2">TODAY’S TASKS</h2>
+          <div className="flex flex-col gap-3">
+            {todaysTasks.length === 0 ? (
+              <p className="text-sm text-gray-500">All tasks completed 🎉</p>
+              ) : (todaysTasks
+                .sort((a, b) => a.priority - b.priority)
+                .map((task) => <TaskCheckbox key={task.id} task={task} />)
+              )}
           </div>
         </div>
 
-        {/* Task + Avatar */}
-        <div className="flex gap-6">
-          {/* Today’s Tasks */}
-          <div className="flex-1">
-            <h2 className="text-xl font-semibold mb-2">TODAY’S TASKS</h2>
-            <div className="flex flex-col gap-3">
-              {todaysTasks.length === 0 ? (
-                <p className="text-sm text-gray-500">All tasks completed 🎉</p>
-              ) : (
-                todaysTasks
-                  .sort((a, b) => a.priority - b.priority)
-                  .map((task) => <TaskCheckbox key={task.id} task={task} />)
-              )}
-            </div>
-          </div>
-
-          {/* Avatar + Achievements */}
-          <div className="w-80 flex flex-col items-center">
-            <Avatar
-              src="/avatars/wizard.png"
-              alt="Wizard Avatar"
-              className="w-40 h-40 mb-4"
-            />
-            <h2 className="text-lg font-semibold mb-2">ACHIEVEMENTS</h2>
-            <div className="flex flex-col gap-2 w-full">
-              {achievements.map((item, index) => (
-                <Card key={index} className="bg-yellow-100">
-                  <CardBody className="p-3 flex gap-2 items-center">
-                    <span className="text-yellow-500 text-lg">⬢</span>
-                    <span>{item}</span>
-                  </CardBody>
+      {/* Avatar + Achievements */}
+      <div className="flex-[0.35] flex flex-col items-center">
+        <Avatar
+          src="/avatars/wizard.png"
+          alt="Wizard Avatar"
+          className="w-40 h-40 mb-4"
+        />
+      <h2 className="text-lg font-semibold mb-2">ACHIEVEMENTS</h2>
+        <div className="flex flex-col gap-2 w-full">
+          {achievements.map((item, index) => (
+            <Card key={index} className="bg-yellow-100">
+              <CardBody className="p-3 flex gap-2 items-center">
+                <span className="text-yellow-500 text-lg">⬢</span>
+                <span>{item}</span>
+                </CardBody>
                 </Card>
-              ))}
+                ))}
             </div>
           </div>
         </div>

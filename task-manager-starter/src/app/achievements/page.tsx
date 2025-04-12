@@ -3,11 +3,11 @@ import { getAvatars } from '@/utils/getAvatars'
 
 import Sidebar from "@/components/sidebar/page";
 import { Card, CardBody } from "@heroui/react";
-import { Progress } from "@heroui/react";
 import Image from "next/image";
+import Levelbar from "@/components/levelbar";
 
 const achievements = ["Badge 1", "Badge 2", "Badge 3", "Badge 4", "Badge 5"];
-const avatars = getAvatars().map((avatar, index) => ({
+const avatars = getAvatars().map((avatar: any, index: number) => ({
   ...avatar,
   unlocked: index === 0 // Only first avatar is unlocked for level 1
 }));
@@ -18,14 +18,8 @@ export default function TasksPage() {
         <Sidebar />
     {/* Main Content */}
     <main className="flex-1 p-6 flex flex-col gap-6">
-          {/* Level Bar */}
-          <div className="flex justify-between items-center">
-          <div className="w-1/2">
-            <div className="text-sm font-semibold">LEVEL 1</div>
-            <Progress value={90} className="w-full mt-1" />
-            <div className="text-xs mt-1 text-right text-gray-600">450 XP / 500 XP</div>
-          </div>
-        </div>
+        {/* Level Bar */}
+          <Levelbar />
         {/* Achievement Badges*/}
         <div className="flex gap-6">
           {/* Tasks */}
