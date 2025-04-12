@@ -10,9 +10,9 @@ export const tasks = pgTable("tasks", {
   dueDate: timestamp("due_date", { withTimezone: true }).notNull(),
   status: taskStatusEnum("task_status").notNull().default("pending"),
   priority: taskPriorityEnum("task_priority").notNull().default("medium"),
-  managerId: uuid("manager_id")
+  managerEmail: uuid("manager_email")
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+    .references(() => users.email, { onDelete: "cascade" }),
 });
 
 export default tasks;

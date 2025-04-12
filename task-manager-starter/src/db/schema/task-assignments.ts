@@ -6,11 +6,11 @@ export const taskAssignments = pgTable("task_assignments", {
     taskId: uuid("task_id")
       .notNull()
       .references(() => tasks.id, { onDelete: "cascade" }),
-    userId: uuid("user_id")
+    userEmail: uuid("user_email")
       .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+      .references(() => users.email, { onDelete: "cascade" }),
   }, (table) => ({
-    pk: [table.taskId, table.userId],
+    pk: [table.taskId, table.userEmail],
   }));
 
   export default taskAssignments;

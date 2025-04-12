@@ -10,6 +10,7 @@ export default async function Profile() {
   const session = await getServerSession(options);
 
   // Level Logic
+  const id = session?.user?.email || "no user found";
   const xp = session?.user?.xp || 0;
   const level = getLevelFromXP(xp);
   const levelXp = levelXP[level] || 0;
@@ -32,6 +33,7 @@ export default async function Profile() {
           <Progress value={progress} className="w-full mt-1" />
           <div className="text-xs mt-1 text-right text-gray-600">{xp - levelXp} XP / {nextLevelXp - levelXp} XP</div>
         </div>
+        <p>{id}</p>
       </CardBody>
     </Card>
   );

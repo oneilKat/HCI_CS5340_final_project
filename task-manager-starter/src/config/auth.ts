@@ -24,7 +24,6 @@ const options: NextAuthOptions = {
       console.log("[jwt callback] user:", user);
       if (user) {
         const dbUser = await getUserByEmail(user.email);
-        console.log("[jwt callback] dbUser:", dbUser);
         token.level = dbUser.level;
         token.xp = dbUser.xp;
       }
@@ -32,7 +31,6 @@ const options: NextAuthOptions = {
     },
 
     async session({ session, token}: { session: any; token: any }) {
-      console.log("[session callback] token:", token);
       if (token?.level) {
         session.user.level = token.level;
       } 
