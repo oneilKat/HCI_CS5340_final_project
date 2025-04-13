@@ -6,10 +6,9 @@ import { eq, inArray } from "drizzle-orm";
 import { getServerSession } from "next-auth";
 import { NextResponse, type NextRequest } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     await requireAuth();
     const session = await getServerSession(options);
-    console.log("Session in API:",session);
 
     if (!session || !session.user) {
         return new Response("Unauthorized", { status: 401 });

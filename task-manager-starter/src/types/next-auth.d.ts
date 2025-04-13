@@ -1,13 +1,17 @@
-// types/next-auth.d.ts
-
-declare module "next-auth" {
+declare module "next-auth/next" {
   interface Session {
     user: {
-      level?: number; // or string, depending on your schema
-    } & DefaultSession["user"];
+      name: string;
+      email: string;
+      image: string;
+      xp: number; // Ensure xp is part of the session
+    };
   }
 
-  interface JWT {
-    level?: number;
+  interface User {
+    email: string;
+    name: string;
+    image: string;
+    xp: number; // Ensure xp is part of the user object
   }
 }

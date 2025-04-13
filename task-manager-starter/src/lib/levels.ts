@@ -29,5 +29,14 @@ export function getLevelFromXP(xp: number): number {
     }
   
     return level;
-  }
-  
+}
+
+
+export function getLevelInfo(xp: number): [number, number, number, number] {
+  const level = getLevelFromXP(xp);
+  const levelXp = levelXP[level] || 0;
+  const nextLevelXp = levelXP[level + 1] || 0;
+  const progress = Math.floor(((xp - levelXp) / (nextLevelXp - levelXp)) * 100);
+
+  return [level, levelXp, nextLevelXp, progress];
+}

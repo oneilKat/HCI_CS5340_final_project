@@ -5,6 +5,7 @@ import GoogleProvider from "next-auth/providers/google";
 import db from "@/db";
 import { env } from "@/env/server";
 import { getUserByEmail } from "@/lib/db";
+import { IntegerConfig } from "drizzle-orm/sqlite-core";
 
 const options: NextAuthOptions = {
   pages: {
@@ -19,29 +20,26 @@ const options: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }: { token: any; user?: any }) {
-      console.log("[jwt callback] user:", user);
-      console.log("[jwt callback] token:", token);
       if (user) {
         const dbUser = await getUserByEmail(user.email);
-        token.level = dbUser.level;
+        console.log("DB User: ", dbUser);
         token.xp = dbUser.xp;
         token.email = user.email;
         token.name = user.name;
+      }
+
+      if (!token.xp) {
+        const dbUser = await getUserByEmail(token.email as string);
+        token.xp = dbUser?.xp;
       }
       return token;
     },
 
     async session({ session, token}: { session: any; token: any }) {
-      console.log("[session callback] session:", session);
-      if (token?.level) {
-        session.user.level = token.level;
-      } 
-      if (token?.xp) {
-        session.user.xp = token.xp;
-      }
       if (token) {
         session.user.email = token.email as string;
         session.user.name = token.name as string;
+        session.user.xp = token.xp as number;
       }
       return session; 
     }
