@@ -15,6 +15,13 @@
       "when": 1744395272049,
       "tag": "0001_brief_shinobi_shaw",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1744499084113,
+      "tag": "0002_bouncy_bucky",
+      "breakpoints": true
     }
   ]
 }

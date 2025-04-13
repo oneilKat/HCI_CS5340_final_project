@@ -1,24 +1,31 @@
-import options from '@/config/auth';
-import db from '@/db';
-import { taskAssignments, tasks } from '@/db/schema';
-import requireAuth from '@/utils/require-auth';
-import { eq } from 'drizzle-orm';
-import { getServerSession } from 'next-auth';
-import { NextResponse, type NextRequest } from 'next/server';
+import options from "@/config/auth";
+import db from "@/db";
+import { taskAssignments, tasks } from "@/db/schema";
+import requireAuth from "@/utils/require-auth";
+import { eq, inArray } from "drizzle-orm";
+import { getServerSession } from "next-auth";
+import { NextResponse, type NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
     await requireAuth();
-    const session = getServerSession(options);
-    console.log(session);
-    if (!session) {
-        return new Response('Unauthorized', { status: 401 });
+    const session = await getServerSession(options);
+    console.log("Session in API:",session);
+
+    if (!session || !session.user) {
+        return new Response("Unauthorized", { status: 401 });
     }
-    const userId = session?.user?.email;
-    console.log(userId);
 
-    const taskIds = await db.select().from(taskAssignments).where(eq(taskAssignments.userId, userId))
+    const userEmail = session?.user?.email || "no user found";
 
-    //const userTasks = await db.select().from(tasks).where(eq(tasks.id, taskIds.taskId))
+    const assignments = await db.select().from(taskAssignments).where(eq(taskAssignments.userEmail, userEmail));
 
-    return NextResponse.json(taskIds);
+    const taskIds = assignments.map((a) => a.taskId);
+
+    if (taskIds.length === 0) {
+        return NextResponse.json({ tasks: [] });
+    }
+
+    const userTasks = await db.select().from(tasks).where(inArray(tasks.id, taskIds));
+
+    return NextResponse.json(userTasks);
 }

@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, timestamp, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, uuid, text, timestamp, pgEnum, varchar } from "drizzle-orm/pg-core";
 import users from "./users";
 
 export const taskStatusEnum = pgEnum("task_status", ["pending", "in_progress", "completed"]);
@@ -10,7 +10,7 @@ export const tasks = pgTable("tasks", {
   dueDate: timestamp("due_date", { withTimezone: true }).notNull(),
   status: taskStatusEnum("task_status").notNull().default("pending"),
   priority: taskPriorityEnum("task_priority").notNull().default("medium"),
-  managerEmail: uuid("manager_email")
+  managerEmail: varchar("manager_email")
     .notNull()
     .references(() => users.email, { onDelete: "cascade" }),
 });
