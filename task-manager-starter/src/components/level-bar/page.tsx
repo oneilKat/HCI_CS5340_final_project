@@ -24,16 +24,16 @@ export default function TestLevelbar() {
     }, []);
 
     const level = getLevelFromXP(xp);
-      const levelXp = levelXP[level] || 0;
-      const nextLevelXp = levelXP[level + 1] || 0;
-      const progress = Math.floor(((xp - levelXp) / (nextLevelXp - levelXp)) * 100);
-  return (
-    <div className="flex justify-between items-center">
-        <div className="w-full">
-          <div className="text-sm font-semibold">LEVEL {level}</div>
-          <Progress value={progress} className="w-full mt-1" />
-          <div className="text-xs mt-1 text-right text-gray-600">{xp - levelXp} XP / {nextLevelXp - levelXp} XP</div>
+    const levelXp = levelXP[level] || 0;
+    const nextLevelXp = levelXP[level + 1] || 0;
+    const progress = Math.floor(((xp - levelXp) / (nextLevelXp - levelXp)) * 100);
+    return (
+        <div className="flex justify-between items-center">
+            <div className="w-full">
+            <div className="text-sm font-semibold">LEVEL {level}</div>
+            <Progress value={progress} className="w-full mt-1" />
+            <div className="text-xs mt-1 text-right text-gray-600">{xp - levelXp} XP / {nextLevelXp - levelXp} XP</div>
+            </div>
         </div>
-    </div>
-  );
+    );
 }

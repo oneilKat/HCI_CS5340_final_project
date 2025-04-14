@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, CardBody, Progress, Avatar } from "@heroui/react";
-import Sidebar from "@/components/sidebar/page";
-import Levelbar from "@/components/levelbar";
+
+import { Avatar, Card, CardBody } from "@heroui/react";
 import Confetti from "react-confetti";
 
+import TestLevelbar from "@/components/level-bar/page";
+import Sidebar from "@/components/sidebar/page";
 
 type Task = {
   id: string;
@@ -20,13 +21,62 @@ type Task = {
 const today = new Date().toISOString().split("T")[0];
 
 const initialTasks: Task[] = [
-  { id: "1", title: "Task 1", dueDate: "2025-04-14", completed: false, priority: 2, xp: 50 },
-  { id: "2", title: "Task 2", dueDate: "2025-04-14", completed: false, priority: 1, xp: 30 },
-  { id: "3", title: "Task 3", dueDate: "2025-04-14", completed: false, priority: 3, xp: 70 },
-  { id: "4", title: "Task 4", dueDate: "2025-04-14", completed: false, priority: 2, xp: 40 },
-  { id: "5", title: "Task 5", dueDate: "2025-04-14", completed: false, priority: 3, xp: 60 },
-  { id: "6", title: "Task 6", dueDate: "2025-04-14", completed: false, priority: 2, xp: 35 },
-  { id: "7", title: "Task 7", dueDate: "2025-04-14", completed: false, priority: 1, xp: 20 },
+  {
+    id: "1",
+    title: "Task 1",
+    dueDate: "2025-04-14",
+    completed: false,
+    priority: 2,
+    xp: 50,
+  },
+  {
+    id: "2",
+    title: "Task 2",
+    dueDate: "2025-04-14",
+    completed: false,
+    priority: 1,
+    xp: 30,
+  },
+  {
+    id: "3",
+    title: "Task 3",
+    dueDate: "2025-04-14",
+    completed: false,
+    priority: 3,
+    xp: 70,
+  },
+  {
+    id: "4",
+    title: "Task 4",
+    dueDate: "2025-04-14",
+    completed: false,
+    priority: 2,
+    xp: 40,
+  },
+  {
+    id: "5",
+    title: "Task 5",
+    dueDate: "2025-04-14",
+    completed: false,
+    priority: 3,
+    xp: 60,
+  },
+  {
+    id: "6",
+    title: "Task 6",
+    dueDate: "2025-04-14",
+    completed: false,
+    priority: 2,
+    xp: 35,
+  },
+  {
+    id: "7",
+    title: "Task 7",
+    dueDate: "2025-04-14",
+    completed: false,
+    priority: 1,
+    xp: 20,
+  },
 ];
 
 const achievements = ["Achievement 1", "Achievement 2", "Achievement 3"];
@@ -85,14 +135,14 @@ export default function DashboardPage() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => toggleTask(task.id)}
-            className="w-5 h-5 border-2 border-gray-400 rounded flex items-center justify-center hover:border-purple-500 transition-colors"
+            className="flex h-5 w-5 items-center justify-center rounded border-2 border-gray-400 transition-colors hover:border-purple-500"
             aria-label={`Complete ${task.title}`}
             role="checkbox"
             aria-checked={task.completed}
           >
             {task.completed ? "✓" : ""}
           </button>
-          <span className={task.completed ? "line-through text-gray-400" : ""}>
+          <span className={task.completed ? "text-gray-400 line-through" : ""}>
             {task.title}
           </span>
         </div>
@@ -119,41 +169,43 @@ export default function DashboardPage() {
 
       <Sidebar />
 
-      <main className="flex-1 p-6 flex flex-col gap-6">
-        <Levelbar />
+      <main className="flex flex-1 flex-col gap-6 p-6">
+        <TestLevelbar />
 
         <div className="flex gap-6">
-  
-      {/* Today’s Tasks */}
-      <div className="flex-[0.65]">
-        <h2 className="text-2xl font-semibold mb-2">TODAY’S TASKS</h2>
-          <div className="flex flex-col gap-3">
-            {todaysTasks.length === 0 ? (
-              <p className="text-md text-gray-500">Today's Tasks Completed 🎉</p>
-              ) : (todaysTasks
-                .sort((a, b) => a.priority - b.priority)
-                .map((task) => <TaskCheckbox key={task.id} task={task} />)
+          {/* Today’s Tasks */}
+          <div className="flex-[0.65]">
+            <h2 className="mb-2 text-2xl font-semibold">TODAY’S TASKS</h2>
+            <div className="flex flex-col gap-3">
+              {todaysTasks.length === 0 ? (
+                <p className="text-md text-gray-500">
+                  Todays Tasks Completed 🎉
+                </p>
+              ) : (
+                todaysTasks
+                  .sort((a, b) => a.priority - b.priority)
+                  .map((task) => <TaskCheckbox key={task.id} task={task} />)
               )}
+            </div>
           </div>
-        </div>
 
-      {/* Avatar + Achievements */}
-      <div className="flex-[0.35] flex flex-col items-center">
-        <Avatar
-          src="/avatars/wizard.png"
-          alt="Wizard Avatar"
-          className="w-40 h-40 mb-4"
-        />
-      <h2 className="text-2xl font-semibold mb-2">ACHIEVEMENTS</h2>
-        <div className="flex flex-col gap-2 w-full">
-          {achievements.map((item, index) => (
-            <Card key={index} className="bg-yellow-100">
-              <CardBody className="p-3 flex gap-2 items-center">
-                <span className="text-yellow-500 text-lg">⬢</span>
-                <span>{item}</span>
-                </CardBody>
+          {/* Avatar + Achievements */}
+          <div className="flex flex-[0.35] flex-col items-center">
+            <Avatar
+              src="/avatars/wizard.png"
+              alt="Wizard Avatar"
+              className="mb-4 h-40 w-40"
+            />
+            <h2 className="mb-2 text-2xl font-semibold">ACHIEVEMENTS</h2>
+            <div className="flex w-full flex-col gap-2">
+              {achievements.map((item, index) => (
+                <Card key={index} className="bg-yellow-100">
+                  <CardBody className="flex items-center gap-2 p-3">
+                    <span className="text-lg text-yellow-500">⬢</span>
+                    <span>{item}</span>
+                  </CardBody>
                 </Card>
-                ))}
+              ))}
             </div>
           </div>
         </div>

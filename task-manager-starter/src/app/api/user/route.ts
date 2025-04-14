@@ -1,10 +1,8 @@
 import options from "@/config/auth";
-import db from "@/db";
-import { users } from "@/db/schema";
+import { getUserByEmail } from "@/lib/db";
 import requireAuth from "@/utils/require-auth";
-import { eq } from "drizzle-orm";
 import { getServerSession } from "next-auth/next";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET() {
     await requireAuth();
@@ -12,6 +10,7 @@ export async function GET() {
     if (!session) {
         return new NextResponse("Unauthorized", { status: 401 });
     }
+    const dbUser = await getUserByEmail(session.user.email);
 
-    return NextResponse.json(session.user);
+    return NextResponse.json(dbUser);
 }
