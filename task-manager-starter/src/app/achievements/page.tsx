@@ -24,7 +24,7 @@ export default function TasksPage() {
         <div className="flex gap-6">
           {/* Tasks */}
           <div className="flex-1">
-            <h2 className="text-xl font-semibold mb-2">ACHIEVEMENTS </h2>
+            <h2 className="text-2xl font-semibold mb-2">ACHIEVEMENTS </h2>
             <div className="flex flex-col gap-3">
               {achievements.map((achievement, index) => (
                 <Card key={index}>
@@ -39,7 +39,7 @@ export default function TasksPage() {
 
         {/* Avatars Section */}
         <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Available Avatars</h2>
+          <h2 className="text-2xl font-semibold mb-4">Available Avatars</h2>
           <div className="grid grid-cols-5 gap-6">
             {avatars.map((avatar, index) => (
               <div key={index} className="flex flex-col items-center relative">

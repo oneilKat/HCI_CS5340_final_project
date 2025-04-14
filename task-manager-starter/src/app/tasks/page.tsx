@@ -32,9 +32,9 @@ type Task = {
 
 const initialTasks: Task[] = [
   { id: "1", title: "Task 1", dueDate: "2025-04-10", completed: false, priority: 2, xp: 50 },
-  { id: "2", title: "Task 2", dueDate: "2025-04-10", completed: false, priority: 1, xp: 30 },
-  { id: "3", title: "Task 3", dueDate: "2025-04-11", completed: false, priority: 3, xp: 70 },
-  { id: "4", title: "Task 4", dueDate: "2025-04-12", completed: false, priority: 2, xp: 40 },
+  { id: "2", title: "Task 2", dueDate: "2025-04-14", completed: false, priority: 1, xp: 30 },
+  { id: "3", title: "Task 3", dueDate: "2025-04-14", completed: false, priority: 3, xp: 70 },
+  { id: "4", title: "Task 4", dueDate: "2025-04-15", completed: false, priority: 2, xp: 40 },
   { id: "5", title: "Task 5", dueDate: "2025-04-09", completed: false, priority: 3, xp: 60 },
   { id: "6", title: "Task 6", dueDate: "2025-04-11", completed: false, priority: 2, xp: 35 },
   { id: "7", title: "Task 7", dueDate: "2025-04-11", completed: false, priority: 1, xp: 20 },
@@ -118,7 +118,7 @@ export default function TasksPage() {
   const renderSection = (title: string, filterFn: (task: Task) => boolean) => (
     <div className="flex gap-6">
       <div className="flex-1">
-        <h2 className="text-xl font-semibold mb-2">{title}</h2>
+        <h2 className="text-2xl font-semibold mb-2">{title}</h2>
         <div className="flex flex-col gap-3">
           {tasks
             .filter(filterFn)

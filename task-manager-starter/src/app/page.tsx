@@ -20,13 +20,13 @@ type Task = {
 const today = new Date().toISOString().split("T")[0];
 
 const initialTasks: Task[] = [
-  { id: "1", title: "Task 1", dueDate: "2025-04-12", completed: false, priority: 2, xp: 50 },
-  { id: "2", title: "Task 2", dueDate: "2025-04-12", completed: false, priority: 1, xp: 30 },
-  { id: "3", title: "Task 3", dueDate: "2025-04-12", completed: false, priority: 3, xp: 70 },
-  { id: "4", title: "Task 4", dueDate: "2025-04-12", completed: false, priority: 2, xp: 40 },
-  { id: "5", title: "Task 5", dueDate: "2025-04-12", completed: false, priority: 3, xp: 60 },
-  { id: "6", title: "Task 6", dueDate: "2025-04-12", completed: false, priority: 2, xp: 35 },
-  { id: "7", title: "Task 7", dueDate: "2025-04-12", completed: false, priority: 1, xp: 20 },
+  { id: "1", title: "Task 1", dueDate: "2025-04-14", completed: false, priority: 2, xp: 50 },
+  { id: "2", title: "Task 2", dueDate: "2025-04-14", completed: false, priority: 1, xp: 30 },
+  { id: "3", title: "Task 3", dueDate: "2025-04-14", completed: false, priority: 3, xp: 70 },
+  { id: "4", title: "Task 4", dueDate: "2025-04-14", completed: false, priority: 2, xp: 40 },
+  { id: "5", title: "Task 5", dueDate: "2025-04-14", completed: false, priority: 3, xp: 60 },
+  { id: "6", title: "Task 6", dueDate: "2025-04-14", completed: false, priority: 2, xp: 35 },
+  { id: "7", title: "Task 7", dueDate: "2025-04-14", completed: false, priority: 1, xp: 20 },
 ];
 
 const achievements = ["Achievement 1", "Achievement 2", "Achievement 3"];
@@ -126,10 +126,10 @@ export default function DashboardPage() {
   
       {/* Today’s Tasks */}
       <div className="flex-[0.65]">
-        <h2 className="text-xl font-semibold mb-2">TODAY’S TASKS</h2>
+        <h2 className="text-2xl font-semibold mb-2">TODAY’S TASKS</h2>
           <div className="flex flex-col gap-3">
             {todaysTasks.length === 0 ? (
-              <p className="text-sm text-gray-500">All tasks completed 🎉</p>
+              <p className="text-md text-gray-500">Today's Tasks Completed 🎉</p>
               ) : (todaysTasks
                 .sort((a, b) => a.priority - b.priority)
                 .map((task) => <TaskCheckbox key={task.id} task={task} />)
@@ -144,7 +144,7 @@ export default function DashboardPage() {
           alt="Wizard Avatar"
           className="w-40 h-40 mb-4"
         />
-      <h2 className="text-lg font-semibold mb-2">ACHIEVEMENTS</h2>
+      <h2 className="text-2xl font-semibold mb-2">ACHIEVEMENTS</h2>
         <div className="flex flex-col gap-2 w-full">
           {achievements.map((item, index) => (
             <Card key={index} className="bg-yellow-100">
