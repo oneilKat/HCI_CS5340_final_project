@@ -3,6 +3,6 @@ import { taskAssignments } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function getTaskByUser(id: string) {
-    const res = await db.select().from(taskAssignments).where(eq(taskAssignments.userId, id)).limit(1);
+    const res = await db.select().from(taskAssignments).where(eq(taskAssignments.userEmail, id)).limit(1);
     return res[0];
 }

@@ -44,8 +44,8 @@ export default function UserCard() {
             src: avatar || "",
           }}
         />
-        <div className="text-sm font-semibold">ROLE {role}</div>
-        <div className="text-sm font-semibold">VERIFIED {verified ? "YES" : "NO"}</div>
+        <div className="text-sm font-semibold">ROLE: {role}</div>
+        <div className="text-sm font-semibold">VERIFIED: {verified ? "Yes" : "No"}</div>
         <TestLevelbar />
         <TestXpButton />
       </CardBody>

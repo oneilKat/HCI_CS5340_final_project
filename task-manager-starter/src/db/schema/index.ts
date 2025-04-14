@@ -3,3 +3,4 @@ export { default as sessions } from "./sessions";
 export { default as users } from "./users";
 export { default as tasks } from "./tasks";
 export { default as taskAssignments } from "./task-assignments";
+export { default as achievements } from "./achievements";
