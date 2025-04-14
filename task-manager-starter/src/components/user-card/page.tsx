@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import TestLevelbar from "../level-bar/page";
 import TestXpButton from "../test-xp-button/page";
 import { getAvatarFromName } from "@/lib/avatars";
+import TestAchievementButton from "../test-achievement-button/page";
 
 interface User {
     name: string;
@@ -48,6 +49,7 @@ export default function UserCard() {
         <div className="text-sm font-semibold">VERIFIED: {verified ? "Yes" : "No"}</div>
         <TestLevelbar />
         <TestXpButton />
+        <TestAchievementButton />
       </CardBody>
     </Card>
     );
