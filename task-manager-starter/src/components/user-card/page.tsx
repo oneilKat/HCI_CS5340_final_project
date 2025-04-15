@@ -1,9 +1,9 @@
 import { Card, CardBody, User } from "@heroui/react";
 import { useEffect, useState } from "react";
-import TestLevelbar from "../level-bar/page";
 import TestXpButton from "../test-xp-button/page";
 import { getAvatarFromName } from "@/lib/avatars";
 import TestAchievementButton from "../test-achievement-button/page";
+import Levelbar from "../level-bar/page";
 
 interface User {
     name: string;
@@ -47,7 +47,7 @@ export default function UserCard() {
         />
         <div className="text-sm font-semibold">ROLE: {role}</div>
         <div className="text-sm font-semibold">VERIFIED: {verified ? "Yes" : "No"}</div>
-        <TestLevelbar />
+        <Levelbar />
         <TestXpButton />
         <TestAchievementButton />
       </CardBody>

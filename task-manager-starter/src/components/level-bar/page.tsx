@@ -3,7 +3,7 @@ import { getLevelFromXP, levelXP } from "@/lib/levels";
 import { Progress } from "@heroui/react";
 import { useEffect, useState } from "react";
 
-export default function TestLevelbar() {
+export default function Levelbar() {
     const [xp, setXp] = useState<number>(0);
 
     useEffect(() => {

@@ -25,7 +25,7 @@ export default function RootLayout({
       </head>
       <body className="h-screen w-screen">
         <Providers>
-          <main className="flex-grow overflow-auto bg-[url(/light-bg.svg)] bg-cover bg-repeat dark:bg-[url(/dark-bg.svg)]">
+          <main className="flex-grow overflow-auto bg-slate-100 bg-cover bg-repeat dark:bg-[url(/dark-bg.svg)]">
             <Suspense>{children}</Suspense>
           </main>
         </Providers>
