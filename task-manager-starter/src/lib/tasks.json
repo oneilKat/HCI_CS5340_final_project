@@ -1,0 +1,83 @@
+[
+    {
+        "title": "Work on Project",
+        "dueDate": "2025-04-15T00:00:00.000Z",
+        "status": false,
+        "priority": 5,
+        "managerEmail": "justin.nappi8@gmail.com",
+        "employeeEmail": "wucody59@gmail.com",
+        "xp": 50
+    },
+    {
+        "title": "Work on Project",
+        "dueDate": "2025-04-15T00:00:00.000Z",
+        "status": false,
+        "priority": 5,
+        "managerEmail": "justin.nappi8@gmail.com",
+        "employeeEmail": "oneilkm23@gmail.com",
+        "xp": 50
+    },
+    {
+        "title": "Work on Project",
+        "dueDate": "2025-04-15T00:00:00.000Z",
+        "status": false,
+        "priority": 5,
+        "managerEmail": "justin.nappi8@gmail.com",
+        "employeeEmail": "wanjing0227@gmail.com",
+        "xp": 50
+    },
+    {
+        "title": "Stand Up Meeting",
+        "dueDate": "2025-04-16T00:00:00.000Z",
+        "status": false,
+        "priority": 3,
+        "managerEmail": "justin.nappi8@gmail.com",
+        "employeeEmail": "wucody59@gmail.com",
+        "xp": 25
+    },
+    {
+        "title": "Finish Design Doc",
+        "dueDate": "2025-04-15T00:00:00.000Z",
+        "status": false,
+        "priority": 2,
+        "managerEmail": "justin.nappi8@gmail.com",
+        "employeeEmail": "oneilkm23@gmail.com",
+        "xp": 25
+    },
+    {
+        "title": "Conduct User Interviews",
+        "dueDate": "2025-04-16T00:00:00.000Z",
+        "status": false,
+        "priority": 4,
+        "managerEmail": "justin.nappi8@gmail.com",
+        "employeeEmail": "wanjing0227@gmail.com",
+        "xp": 60
+    },
+    {
+        "title": "Meet with Manager",
+        "dueDate": "2025-04-19T00:00:00.000Z",
+        "status": false,
+        "priority": 5,
+        "managerEmail": "justin.nappi8@gmail.com",
+        "employeeEmail": "wucody59@gmail.com",
+        "xp": 45
+    },
+    {
+        "title": "Discuss Design with Engineers",
+        "dueDate": "2025-04-17T00:00:00.000Z",
+        "status": false,
+        "priority": 5,
+        "managerEmail": "justin.nappi8@gmail.com",
+        "employeeEmail": "oneilkm23@gmail.com",
+        "xp": 80
+    },
+    {
+        "title": "Discuss Feedback with Design Team",
+        "dueDate": "2025-04-17T00:00:00.000Z",
+        "status": false,
+        "priority": 5,
+        "managerEmail": "justin.nappi8@gmail.com",
+        "employeeEmail": "wanjing0227@gmail.com",
+        "xp": 50
+    }
+]
