@@ -10,11 +10,11 @@ import { Avatar } from "@heroui/react";
 
 const getRandomColors = () => {
   const colorPalettes = [
-    ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4'],
-    ['#FFB6C1', '#98FB98', '#87CEEB', '#DDA0DD'],
-    ['#9333EA', '#A855F7', '#C084FC', '#E9D5FF'],
-    ['#FF7F50', '#8A2BE2', '#00FA9A', '#FF1493'],
-    ['#FFA07A', '#98FB98', '#87CEFA', '#DDA0DD'],
+    ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4"],
+    ["#FFB6C1", "#98FB98", "#87CEEB", "#DDA0DD"],
+    ["#9333EA", "#A855F7", "#C084FC", "#E9D5FF"],
+    ["#FF7F50", "#8A2BE2", "#00FA9A", "#FF1493"],
+    ["#FFA07A", "#98FB98", "#87CEFA", "#DDA0DD"],
   ];
   return colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
 };
@@ -25,20 +25,20 @@ type Task = {
   id: string;
   title: string;
   dueDate: string;
-  completed: boolean;
+  status: boolean;
   previousDueDate?: string;
   priority: number;
   xp: number;
 };
 
 const initialTasks: Task[] = [
-  { id: "1", title: "Task 1", dueDate: today, completed: false, priority: 2, xp: 50 },
-  { id: "2", title: "Task 2", dueDate: today, completed: false, priority: 1, xp: 30 },
-  { id: "3", title: "Task 3", dueDate: today, completed: false, priority: 3, xp: 70 },
-  { id: "4", title: "Task 4", dueDate: today, completed: false, priority: 2, xp: 40 },
-  { id: "5", title: "Task 5", dueDate: "2025-04-09", completed: false, priority: 3, xp: 60 },
-  { id: "6", title: "Task 6", dueDate: "2025-04-11", completed: false, priority: 2, xp: 35 },
-  { id: "7", title: "Task 7", dueDate: "2025-04-11", completed: false, priority: 1, xp: 20 },
+  { id: "1", title: "Task 1", dueDate: today, status: false, priority: 2, xp: 50 },
+  { id: "2", title: "Task 2", dueDate: today, status: false, priority: 1, xp: 30 },
+  { id: "3", title: "Task 3", dueDate: today, status: false, priority: 3, xp: 70 },
+  { id: "4", title: "Task 4", dueDate: today, status: false, priority: 2, xp: 40 },
+  { id: "5", title: "Task 5", dueDate: "2025-04-09", status: false, priority: 3, xp: 60 },
+  { id: "6", title: "Task 6", dueDate: "2025-04-11", status: false, priority: 2, xp: 35 },
+  { id: "7", title: "Task 7", dueDate: "2025-04-11", status: false, priority: 1, xp: 20 },
 ];
 
 type Achievement = {
@@ -79,7 +79,7 @@ export default function DashboardPage() {
 
   const toggleTask = (id: string) => {
     const toggledTask = tasks.find((t) => t.id === id);
-    if (toggledTask && !toggledTask.completed) {
+    if (toggledTask && !toggledTask.status) {
       setShowConfetti(true);
       setConfettiColors(getRandomColors());
       setTimeout(() => setShowConfetti(false), 3000);
@@ -89,7 +89,7 @@ export default function DashboardPage() {
       prevTasks.map((task) => {
         if (task.id !== id) return task;
 
-        if (!task.completed) {
+        if (!task.status) {
           return {
             ...task,
             completed: true,
@@ -139,10 +139,10 @@ export default function DashboardPage() {
       <Sidebar />
       <main className="flex-[0.65] p-6 flex flex-col gap-6">
         <Levelbar />
-        {renderSection("TODAY'S TASKS", (task) => task.dueDate === today && !task.completed)}
-        {renderSection("FUTURE TASKS", (task) => task.dueDate > today && !task.completed)}
-        {renderSection("PAST DUE TASKS", (task) => task.dueDate < today && !task.completed)}
-        {renderSection("COMPLETED TASKS", (task) => task.completed)}
+        {renderSection("TODAY'S TASKS", (task) => task.dueDate === today && !task.status)}
+        {renderSection("FUTURE TASKS", (task) => task.dueDate > today && !task.status)}
+        {renderSection("PAST DUE TASKS", (task) => task.dueDate < today && !task.status)}
+        {renderSection("COMPLETED TASKS", (task) => task.status)}
       </main>
 
       {/* Avatar + Achievements */}

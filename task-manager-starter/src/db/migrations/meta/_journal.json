@@ -8,6 +8,13 @@
       "when": 1744719817888,
       "tag": "0000_uneven_overlord",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1744725952518,
+      "tag": "0001_heavy_spencer_smythe",
+      "breakpoints": true
     }
   ]
 }

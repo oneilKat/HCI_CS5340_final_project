@@ -1,8 +1,8 @@
 import options from "@/config/auth";
 import db from "@/db";
-import { taskAssignments, tasks } from "@/db/schema";
+import { tasks } from "@/db/schema";
 import requireAuth from "@/utils/require-auth";
-import { eq, inArray } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { getServerSession } from "next-auth";
 import { NextResponse, NextRequest } from "next/server";
 
@@ -16,17 +16,9 @@ export async function GET() {
 
     const userEmail = session?.user?.email || "no user found";
 
-    const assignments = await db.select().from(taskAssignments).where(eq(taskAssignments.userEmail, userEmail));
+    const assignedTasks = await db.select().from(tasks).where(eq(tasks.employeeEmail, userEmail));
 
-    const taskIds = assignments.map((a) => a.taskId);
-
-    if (taskIds.length === 0) {
-        return NextResponse.json({ tasks: [] });
-    }
-
-    const userTasks = await db.select().from(tasks).where(inArray(tasks.id, taskIds));
-
-    return NextResponse.json(userTasks);
+    return NextResponse.json(assignedTasks);
 }
 
 export async function POST(req: NextRequest) {
@@ -38,9 +30,9 @@ export async function POST(req: NextRequest) {
 
     try {
     const body = await req.json();
-    const { title, dueDate, status, priority, managerEmail } = body;
+    const { title, dueDate, status, priority, managerEmail, employeeEmail } = body;
     
-    if (!title || !dueDate || !status || !priority || !managerEmail) {
+    if (!title || !dueDate || !status || !priority || !managerEmail || !employeeEmail) {
         return NextResponse.json("Missing fields", { status: 400 });
     }
 
@@ -48,11 +40,7 @@ export async function POST(req: NextRequest) {
     if (!userEmail) return NextResponse.json("Unauthorized", { status: 401 });
 
     const res = await db.insert(tasks).values({
-        title: title || "",
-        dueDate: dueDate || "",
-        status: status || "",
-        priority: priority || "",
-        managerEmail: userEmail
+        title, dueDate, managerEmail, employeeEmail, status, priority
     });
 
     return NextResponse.json({ success: true, res }, { status: 200 });
@@ -79,7 +67,7 @@ export async function PATCH(req: NextRequest) {
             return NextResponse.json({ error: "Missing taskId" }, {status: 400});
         }
 
-        const res = await db.update(tasks).set({ status: "completed" }).where(eq(tasks.id, taskId));
+        const res = await db.update(tasks).set({ status: true }).where(eq(tasks.id, taskId));
 
         return NextResponse.json({ success: true, res }, { status: 200 });
 

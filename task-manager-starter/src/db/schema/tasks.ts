@@ -12,7 +12,8 @@ export const tasks = pgTable("tasks", {
     .references(() => users.email, { onDelete: "cascade" }),
   employeeEmail: varchar("employee_email")
     .notNull()
-    .references(() => users.email, { onDelete: "cascade" })
+    .references(() => users.email, { onDelete: "cascade" }),
+  xp: integer("xp")
 });
 
 export default tasks;

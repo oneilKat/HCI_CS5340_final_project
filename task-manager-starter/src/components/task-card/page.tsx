@@ -3,7 +3,7 @@
 type Task = {
   id: string;
   title: string;
-  completed: boolean;
+  status: boolean;
   xp: number;
   dueDate: string;
   priority: number;
@@ -30,16 +30,16 @@ export function TaskCard({ task, onToggle }: TaskItemProps) {
             className="w-5 h-5 border-2 border-gray-400 rounded flex items-center justify-center hover:border-purple-500 transition-colors"
             aria-label={`Toggle task ${task.title}`}
             role="checkbox"
-            aria-checked={task.completed}
+            aria-checked={task.status}
           >
-            {task.completed ? "✓" : ""}
+            {task.status ? "✓" : ""}
           </button>
         )}
         <div className="flex flex-col">
           <span
             className={
-              task.completed
-                ? "text-xl text-black line-through text-gray-400"
+              task.status
+                ? "text-xl line-through text-gray-400"
                 : "text-xl text-black"
             }
           >
