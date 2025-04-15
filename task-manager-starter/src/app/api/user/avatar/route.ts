@@ -7,6 +7,23 @@ import { eq } from "drizzle-orm";
 import { getServerSession } from "next-auth/next";
 import { NextRequest, NextResponse } from "next/server";
 
+export async function GET() {
+    await requireAuth();
+    const session = await getServerSession(options);
+    if (!session) {
+        return NextResponse.json("Unauthorized", { status: 401 });
+    }
+
+    const dbUser = await getUserByEmail(session.user.email);
+    if (!dbUser) {
+        return NextResponse.json("User not found", { status: 404 });
+    }
+
+    const userAvatar = dbUser.avatar;
+
+    return NextResponse.json({ avatar: userAvatar }, { status: 200});
+}
+
 export async function PATCH(req: NextRequest) {
     await requireAuth();
     const session = await getServerSession(options);

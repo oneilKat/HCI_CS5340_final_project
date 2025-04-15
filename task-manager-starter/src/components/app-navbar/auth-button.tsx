@@ -1,5 +1,6 @@
 "use client";
 
+import { getAvatarFromName } from "@/lib/avatars";
 import {
   Avatar,
   Button,
@@ -11,9 +12,33 @@ import {
 } from "@heroui/react";
 import { IconBrandGoogle } from "@tabler/icons-react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
+
+interface User {
+  name: string;
+  email: string;
+  avatar: string;
+  xp: number;
+  role: string;
+  verified: boolean;
+}
 
 export default function AuthButton({ minimal = true }: { minimal?: boolean }) {
   const { data, status } = useSession();
+  const [user, setUser] = useState<User | null>(null);
+  
+      useEffect(() => {
+          const fetchUser = async () => {
+              const res = await fetch("/api/user");
+              if (!res.ok) {
+                  throw new Error("Failed to fetch user");
+              }
+              const data = await res.json();
+              setUser(data);
+          };
+          fetchUser();
+      }, []);
+      const avatar = getAvatarFromName(user?.avatar);
 
   if (status === "loading") {
     return <CircularProgress />;
@@ -40,8 +65,8 @@ export default function AuthButton({ minimal = true }: { minimal?: boolean }) {
             isBordered
             as="button"
             className="transition-transform"
-            showFallback={!data.user?.image}
-            src={data.user?.image || ""}
+            showFallback={false}
+            src={avatar || ""}
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">

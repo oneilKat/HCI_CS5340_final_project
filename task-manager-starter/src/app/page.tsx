@@ -7,6 +7,7 @@ import Confetti from "react-confetti";
 import { TaskCard } from "@/components/task-card/page";
 import { AchieveCard } from "@/components/achieve-card/page";  // Ensure this is correctly imported
 import { Avatar } from "@heroui/react";
+import { getAvatarFromName } from "@/lib/avatars";
 
 const getRandomColors = () => {
   const colorPalettes = [
@@ -39,16 +40,39 @@ type Achievement = {
   userEmail: string;
 };
 
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: string;
+  avatar: string;
+  level: number;
+  role: string;
+  xp: number;
+}
+
 export default function DashboardPage() {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/user");
+        const data = await res.json();
+        setUser(data);
+      } catch (error) {
+        console.log("Failed to fetch user: ", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  const avatar = getAvatarFromName(user?.avatar);
+
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const handleToggle = async (id: string, completed: boolean, xp: number) => {
-    const toggledTask = tasks.find((t) => t.id === id);
-    if (toggledTask && !toggledTask.status) {
-      setShowConfetti(true);
-      setConfettiColors(getRandomColors());
-      setTimeout(() => setShowConfetti(false), 3000);
-    }
       try {
         const res = await fetch(`/api/tasks/${id}`, {
           method: "PATCH",
@@ -80,6 +104,12 @@ export default function DashboardPage() {
       } catch (error) {
         console.error(error);
       }
+    const toggledTask = tasks.find((t) => t.id === id);
+    if (toggledTask && !toggledTask.status) {
+      setShowConfetti(true);
+      setConfettiColors(getRandomColors());
+      setTimeout(() => setShowConfetti(false), 3000);
+    }
     };
   
     useEffect(() => {
@@ -168,7 +198,7 @@ export default function DashboardPage() {
         />
       )}
       <Sidebar />
-      <main className="flex-[0.65] p-6 flex flex-col gap-6">
+      <main className="flex-[0.65] p-6 flex flex-col gap-6 mt-3">
         <Levelbar />
         {renderSection("TODAY'S TASKS", (task) => task.dueDate === today && !task.status)}
         {renderSection("FUTURE TASKS", (task) => task.dueDate > today && !task.status)}
@@ -177,12 +207,14 @@ export default function DashboardPage() {
       </main>
 
       {/* Avatar + Achievements */}
-      <div className="flex flex-[.35] flex-col items-center mr-3">
+      <div className="flex flex-[.35] flex-col items-center mr-3 mt-3">
         <Avatar
-          src="/avatars/wizard.png"
+          src={avatar}
           alt="Wizard Avatar"
           className="mb-4 h-40 w-40"
         />
+        <p className="mb-2 text-xl font-semibold">Name: {user?.name}</p>
+        <p className="mb-2 text-xl font-semibold">Role: {user?.role}</p>
         <h2 className="mb-2 text-2xl font-semibold">ACHIEVEMENTS</h2>
         <div className="flex flex-[0.5] flex-col gap-3">
           {achievements.map((item, index) => (

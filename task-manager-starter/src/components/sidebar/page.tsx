@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import AuthButton from "../app-navbar/auth-button";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -44,6 +45,10 @@ export default function Sidebar() {
         </Link>
       ))}
       {role === "manager" && <Link href="/create-task" className="flex items-center gap-2 px-3 py-2 rounded-md text-lg hover:bg-slate-300">Create Task</Link>}
+
+      <div className="mt-auto flex justify-end pr-2">
+        <AuthButton minimal={false}/>
+      </div>
 
     </aside>
   );
