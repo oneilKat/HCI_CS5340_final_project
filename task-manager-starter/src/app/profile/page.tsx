@@ -16,14 +16,14 @@ type Task = {
 export default function Profile() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const handleToggle = async (id: string) => {
+  const handleToggle = async (id: string, completed: boolean, xp: number) => {
     try {
       const res = await fetch(`/api/tasks/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ status: true })
+        body: JSON.stringify({ status: !completed })
       });
 
       if (!res.ok) {
@@ -35,6 +35,16 @@ export default function Profile() {
       setTasks(prev => 
         prev.map(task => (task.id === id ? { ...task, status: updatedTask.status } : task))
       );
+
+      if (!completed) {
+        await fetch("/api/user/xp", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ xp })
+        });
+      }
     } catch (error) {
       console.error(error);
     }
@@ -68,7 +78,7 @@ export default function Profile() {
       <UserCard />
       <div className="grid gap-4">
         {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} onToggle={handleToggle}/>
+          <TaskCard key={task.id} task={task} onToggle={() => handleToggle(task.id, task.status, task.xp)}/>
         ))}
       </div>
     </div>

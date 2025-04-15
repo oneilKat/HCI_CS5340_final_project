@@ -31,16 +31,6 @@ type Task = {
   xp: number;
 };
 
-const initialTasks: Task[] = [
-  { id: "1", title: "Task 1", dueDate: today, status: false, priority: 2, xp: 50 },
-  { id: "2", title: "Task 2", dueDate: today, status: false, priority: 1, xp: 30 },
-  { id: "3", title: "Task 3", dueDate: today, status: false, priority: 3, xp: 70 },
-  { id: "4", title: "Task 4", dueDate: today, status: false, priority: 2, xp: 40 },
-  { id: "5", title: "Task 5", dueDate: "2025-04-09", status: false, priority: 3, xp: 60 },
-  { id: "6", title: "Task 6", dueDate: "2025-04-11", status: false, priority: 2, xp: 35 },
-  { id: "7", title: "Task 7", dueDate: "2025-04-11", status: false, priority: 1, xp: 20 },
-];
-
 type Achievement = {
   id: string;
   title: string;
@@ -58,7 +48,71 @@ const achievements: Achievement[] = [
 ];
 
 export default function DashboardPage() {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const handleToggle = async (id: string, completed: boolean, xp: number) => {
+    const toggledTask = tasks.find((t) => t.id === id);
+    if (toggledTask && !toggledTask.status) {
+      setShowConfetti(true);
+      setConfettiColors(getRandomColors());
+      setTimeout(() => setShowConfetti(false), 3000);
+    }
+      try {
+        const res = await fetch(`/api/tasks/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: !completed })
+        });
+  
+        if (!res.ok) {
+          throw new Error("Failed to update task");
+        }
+  
+        const updatedTask = await res.json();
+  
+        setTasks(prev => 
+          prev.map(task => (task.id === id ? { ...task, status: updatedTask.status } : task))
+        );
+  
+        if (!completed) {
+          await fetch("/api/user/xp", {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ xp })
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    useEffect(() => {
+      const fetchTasks = async () => {
+        try {
+          const res = await fetch("/api/tasks");
+          const data = await res.json();
+  
+          const sorted = data.sort((a: Task, b: Task) => {
+            if (a.status !== b.status) {
+              return a.status ? 1 : -1;
+            }
+  
+            return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+          });
+  
+          setTasks(sorted);
+        } catch (error) {
+          console.log("Failed to fetch tasks: ", error);
+        }
+      };
+  
+      fetchTasks();
+    }, []);
+
   const [showConfetti, setShowConfetti] = useState(false);
   const [confettiColors, setConfettiColors] = useState(getRandomColors());
   const [windowSize, setWindowSize] = useState({
@@ -77,48 +131,17 @@ export default function DashboardPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const toggleTask = (id: string) => {
-    const toggledTask = tasks.find((t) => t.id === id);
-    if (toggledTask && !toggledTask.status) {
-      setShowConfetti(true);
-      setConfettiColors(getRandomColors());
-      setTimeout(() => setShowConfetti(false), 3000);
-    }
-
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => {
-        if (task.id !== id) return task;
-
-        if (!task.status) {
-          return {
-            ...task,
-            completed: true,
-            previousDueDate: task.dueDate,
-            dueDate: today,
-          };
-        } else {
-          return {
-            ...task,
-            completed: false,
-            dueDate: task.previousDueDate || today,
-            previousDueDate: undefined,
-          };
-        }
-      })
-    );
-  };
-
   const renderSection = (title: string, filterFn: (task: Task) => boolean) => (
     <div className="flex gap-6">
       <div className="flex-1">
         <h2 className="text-2xl font-semibold mb-2">{title}</h2>
         <div className="flex flex-col gap-3">
-          {tasks
-            .filter(filterFn)
-            .sort((a, b) => a.priority - b.priority)
-            .map((task) => (
-              <TaskCard key={task.id} task={task} onToggle={toggleTask} />
-            ))}
+        {tasks
+        .filter(filterFn)
+        .sort((a, b) => a.priority - b.priority)
+        .map((task) => (
+          <TaskCard key={task.id} task={task} onToggle={() => handleToggle(task.id, task.status, task.xp)}/>
+        ))}
         </div>
       </div>
     </div>
