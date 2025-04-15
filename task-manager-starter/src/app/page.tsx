@@ -39,14 +39,6 @@ type Achievement = {
   userEmail: string;
 };
 
-const achievements: Achievement[] = [
-  { id: "1", title: "Completed 10 tasks", icon: "🌟", description: "You completed 10 tasks. Keep it up!", userEmail: "user@example.com"},
-  { id: "2", title: "Achieved level 5", icon: "🎮", description: "Congratulations on reaching level 5!", userEmail: "user@example.com"},
-  { id: "3", title: "Completed a task in under 1 hour", icon: "⏱️", description: "You completed a task in under 1 hour. Speedy!", userEmail: "user@example.com"},
-  { id: "4", title: "Achieved 100 XP", icon: "💯", description: "You earned 100 XP. Great progress!", userEmail: "user@example.com"},
-  { id: "5", title: "Completed a week's worth of tasks", icon: "📅", description: "You completed all tasks for the week. Amazing consistency!", userEmail: "user@example.com"}
-];
-
 export default function DashboardPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -112,6 +104,22 @@ export default function DashboardPage() {
   
       fetchTasks();
     }, []);
+
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
+  useEffect (() => {
+    const fetchAchievements = async () => {
+      try {
+        const res =  await fetch("/api/achievements");
+        const data = await res.json();
+
+        setAchievements(data);
+      } catch (error) {
+        console.error("Failed to fetch achievements", error);
+      }
+    };
+
+    fetchAchievements();
+  }, []);
 
   const [showConfetti, setShowConfetti] = useState(false);
   const [confettiColors, setConfettiColors] = useState(getRandomColors());
