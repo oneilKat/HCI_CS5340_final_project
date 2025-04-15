@@ -28,6 +28,7 @@ export default function Sidebar() {
     { href: "/tasks", label: "Tasks" },
     { href: "/achievements", label: "Achievements" },
     { href: "/profile", label: "Profile" },
+    { href: "/leaderboard", label: "Leaderboard" }
   ];
 
   return (
