@@ -30,9 +30,11 @@ export async function POST(req: NextRequest) {
 
     try {
     const body = await req.json();
-    const { title, dueDate, status, priority, managerEmail, employeeEmail } = body;
+    const { title, dueDate, priority, managerEmail, employeeEmail, xp } = body;
+
+    const parsedDueDate = new Date(dueDate);
     
-    if (!title || !dueDate || !status || !priority || !managerEmail || !employeeEmail) {
+    if (!title || !dueDate || !priority || !managerEmail || !employeeEmail || !xp) {
         return NextResponse.json("Missing fields", { status: 400 });
     }
 
@@ -40,7 +42,12 @@ export async function POST(req: NextRequest) {
     if (!userEmail) return NextResponse.json("Unauthorized", { status: 401 });
 
     const res = await db.insert(tasks).values({
-        title, dueDate, managerEmail, employeeEmail, status, priority
+        title,
+        dueDate: parsedDueDate,
+        managerEmail,
+        employeeEmail,
+        priority,
+        xp
     });
 
     return NextResponse.json({ success: true, res }, { status: 200 });
