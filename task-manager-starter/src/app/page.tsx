@@ -71,6 +71,9 @@ export default function DashboardPage() {
   const avatar = getAvatarFromName(user?.avatar);
 
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [levelbarKey, setLevelBarKey] = useState(0);
+
+  const refreshLevelBar = () => setLevelBarKey(prev => prev + 1);
 
   const handleToggle = async (id: string, completed: boolean, xp: number) => {
       try {
@@ -110,6 +113,7 @@ export default function DashboardPage() {
       setConfettiColors(getRandomColors());
       setTimeout(() => setShowConfetti(false), 3000);
     }
+    refreshLevelBar();
     };
   
     useEffect(() => {
@@ -199,7 +203,7 @@ export default function DashboardPage() {
       )}
       <Sidebar />
       <main className="flex-[0.65] p-6 flex flex-col gap-6 mt-3">
-        <Levelbar />
+        <Levelbar key={levelbarKey} />
         {renderSection("TODAY'S TASKS", (task) => task.dueDate === today && !task.status)}
         {renderSection("FUTURE TASKS", (task) => task.dueDate > today && !task.status)}
         {renderSection("PAST DUE TASKS", (task) => task.dueDate < today && !task.status)}
