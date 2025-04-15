@@ -1,10 +1,11 @@
 "use client";
-import { getAvatars } from '@/utils/getAvatars'
+
 import Sidebar from "@/components/sidebar/page";
-import { Card, CardBody } from "@heroui/react";
 import Image from "next/image";
 import Levelbar from "@/components/level-bar/page";
 import { AchieveCard } from "@/components/achieve-card/page";
+import { useState, useEffect } from "react";
+import { avatarOptions, handleAvatarClick } from "@/lib/avatars";
 
 type Achievement = {
   id: string;
@@ -14,20 +15,53 @@ type Achievement = {
   userEmail: string;
 };
 
-const achievements: Achievement[] = [
-  { id: "1", title: "Completed 10 tasks", icon: "🌟", description: "You completed 10 tasks. Keep it up!", userEmail: "user@example.com"},
-  { id: "2", title: "Achieved level 5", icon: "🎮", description: "Congratulations on reaching level 5!", userEmail: "user@example.com"},
-  { id: "3", title: "Completed a task in under 1 hour", icon: "⏱️", description: "You completed a task in under 1 hour. Speedy!", userEmail: "user@example.com"},
-  { id: "4", title: "Achieved 100 XP", icon: "💯", description: "You earned 100 XP. Great progress!", userEmail: "user@example.com"},
-  { id: "5", title: "Completed a week's worth of tasks", icon: "📅", description: "You completed all tasks for the week. Amazing consistency!", userEmail: "user@example.com"}
-];
-
-const avatars = getAvatars().map((avatar: any, index: number) => ({
-  ...avatar,
-  unlocked: index === 0 // Only first avatar is unlocked for level 1
-}));
+type AvatarWithUnlock = {
+  name: string;
+  image: string;
+  unlocked: boolean;
+}
 
 export default function AchievementsPage() {
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
+    useEffect (() => {
+      const fetchAchievements = async () => {
+        try {
+          const res =  await fetch("/api/achievements");
+          const data = await res.json();
+  
+          setAchievements(data);
+        } catch (error) {
+          console.error("Failed to fetch achievements", error);
+        }
+      };
+  
+      fetchAchievements();
+    }, []);
+
+    //const [userXp, setUserXp] = useState<number>(0);
+    const [avatars, setAvatars] = useState<AvatarWithUnlock[]>([]);
+
+    useEffect(() => {
+      const fetchXp = async () => {
+        try {
+          const res = await fetch("/api/user/xp");
+          const data = await res.json();
+
+          const unlockedAvatars = avatarOptions.map((avatar) => ({
+            ...avatar,
+            unlocked: data.xp >= avatar.xpRequired
+          }));
+
+          setAvatars(unlockedAvatars);
+
+        } catch (error) {
+          console.error("Unable to fetch xp: ", error);
+        }
+      };
+
+      fetchXp();
+    }, []);
+    
   return (
     <div className="flex min-h-screen bg-slate-100 text-gray-800">
       <Sidebar />
@@ -50,16 +84,16 @@ export default function AchievementsPage() {
           <h2 className="text-2xl font-semibold mb-6">Available Avatars</h2>
           <div className="grid grid-cols-5 gap-2">
             {avatars.map((avatar, index) => (
-              <div key={index} className="flex flex-col items-center relative">
+              <div key={index} className="flex flex-col items-center relative" onClick={() => handleAvatarClick(avatar.name, avatar.unlocked)}>
                 <div className={`w-30 h-30 rounded-full overflow-hidden border-4 
-                  ${avatar.unlocked ? 'border-purple-400 hover:border-purple-600' : 'border-gray-400'} 
+                  ${avatar.unlocked ? "border-purple-400 hover:border-purple-600" : "border-gray-400"} 
                   transition-colors relative`}>
                   <Image
                     src={avatar.image}
                     alt={avatar.name}
                     width={96}
                     height={96}
-                    className={`object-cover ${!avatar.unlocked ? 'opacity-50' : ''}`}
+                    className={`object-cover ${!avatar.unlocked ? "opacity-50" : ""}`}
                   />
                   {!avatar.unlocked && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
@@ -68,7 +102,7 @@ export default function AchievementsPage() {
                   )}
                 </div>
                 <span className={`mt-2 text-sm font-medium text-center 
-                  ${avatar.unlocked ? 'text-gray-800' : 'text-gray-400'}`}>
+                  ${avatar.unlocked ? "text-gray-800" : "text-gray-400"}`}>
                   {avatar.name}
                 </span>
               </div>
