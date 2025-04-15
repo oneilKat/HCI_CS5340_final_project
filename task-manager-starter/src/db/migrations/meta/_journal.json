@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1744324089600,
-      "tag": "0000_square_jack_power",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1744395272049,
-      "tag": "0001_brief_shinobi_shaw",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1744499084113,
-      "tag": "0002_bouncy_bucky",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1744639546284,
-      "tag": "0003_square_rawhide_kid",
+      "when": 1744719817888,
+      "tag": "0000_uneven_overlord",
       "breakpoints": true
     }
   ]
