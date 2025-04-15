@@ -2,7 +2,7 @@
 
 import Sidebar from "@/components/sidebar/page";
 import { Card, CardBody } from "@heroui/react";
-import Levelbar from "@/components/levelbar";
+import Levelbar from "@/components/level-bar/page";
 
 const team = ["Kathryn", "Justin", "Ahri", "Cody", "Saiph"];
 const score = ["5000", "5000", "5000", "5000", "5000"];

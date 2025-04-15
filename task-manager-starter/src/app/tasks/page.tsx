@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Sidebar from "@/components/sidebar/page";
-import { Card, CardBody } from "@heroui/react";
+import Levelbar from "@/components/level-bar/page";
 import Confetti from "react-confetti";
-import Levelbar from "@/components/levelbar";
+import { TaskCard } from "@/components/task-card/page";
 
-// Random color generator
 const getRandomColors = () => {
   const colorPalettes = [
     ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4'],
@@ -31,10 +30,10 @@ type Task = {
 };
 
 const initialTasks: Task[] = [
-  { id: "1", title: "Task 1", dueDate: "2025-04-10", completed: false, priority: 2, xp: 50 },
-  { id: "2", title: "Task 2", dueDate: "2025-04-14", completed: false, priority: 1, xp: 30 },
-  { id: "3", title: "Task 3", dueDate: "2025-04-14", completed: false, priority: 3, xp: 70 },
-  { id: "4", title: "Task 4", dueDate: "2025-04-15", completed: false, priority: 2, xp: 40 },
+  { id: "1", title: "Task 1", dueDate: today, completed: false, priority: 2, xp: 50 },
+  { id: "2", title: "Task 2", dueDate: today, completed: false, priority: 1, xp: 30 },
+  { id: "3", title: "Task 3", dueDate: today, completed: false, priority: 3, xp: 70 },
+  { id: "4", title: "Task 4", dueDate: today, completed: false, priority: 2, xp: 40 },
   { id: "5", title: "Task 5", dueDate: "2025-04-09", completed: false, priority: 3, xp: 60 },
   { id: "6", title: "Task 6", dueDate: "2025-04-11", completed: false, priority: 2, xp: 35 },
   { id: "7", title: "Task 7", dueDate: "2025-04-11", completed: false, priority: 1, xp: 20 },
@@ -61,12 +60,18 @@ export default function TasksPage() {
   }, []);
 
   const toggleTask = (id: string) => {
+    const toggledTask = tasks.find((t) => t.id === id);
+    if (toggledTask && !toggledTask.completed) {
+      setShowConfetti(true);
+      setConfettiColors(getRandomColors());
+      setTimeout(() => setShowConfetti(false), 3000);
+    }
+
     setTasks((prevTasks) =>
       prevTasks.map((task) => {
         if (task.id !== id) return task;
 
         if (!task.completed) {
-          setConfettiColors(getRandomColors()); // Set new random colors
           return {
             ...task,
             completed: true,
@@ -83,37 +88,7 @@ export default function TasksPage() {
         }
       })
     );
-
-    const toggledTask = tasks.find((t) => t.id === id);
-    if (toggledTask && !toggledTask.completed) {
-      setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 3000);
-    }
   };
-
-  const TaskCheckbox = ({ task }: { task: Task }) => (
-    <Card key={task.id}>
-      <CardBody className="flex justify-between p-4">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => toggleTask(task.id)}
-            className="w-5 h-5 border-2 border-gray-400 rounded flex items-center justify-center hover:border-purple-500 transition-colors"
-            aria-label={`Complete ${task.title}`}
-            role="checkbox"
-            aria-checked={task.completed}
-          >
-            {task.completed ? "✓" : ""}
-          </button>
-          <span className={task.completed ? "line-through text-gray-400" : ""}>
-            {task.title}
-          </span>
-        </div>
-        <span className="text-sm text-red-500">Priority: {task.priority}</span>
-        <span className="text-sm text-gray-500">Due: {task.dueDate}</span>
-        <span className="text-lg text-blue-500">{task.xp} XP</span>
-      </CardBody>
-    </Card>
-  );
 
   const renderSection = (title: string, filterFn: (task: Task) => boolean) => (
     <div className="flex gap-6">
@@ -124,7 +99,7 @@ export default function TasksPage() {
             .filter(filterFn)
             .sort((a, b) => a.priority - b.priority)
             .map((task) => (
-              <TaskCheckbox key={task.id} task={task} />
+              <TaskCard key={task.id} task={task} onToggle={toggleTask} />
             ))}
         </div>
       </div>
