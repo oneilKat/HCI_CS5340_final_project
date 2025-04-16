@@ -8,6 +8,7 @@ import { TaskCard } from "@/components/task-card/page";
 import { AchieveCard } from "@/components/achieve-card/page";  // Ensure this is correctly imported
 import { Avatar } from "@heroui/react";
 import { getAvatarFromName } from "@/lib/avatars";
+import MotivationalMeme from '@/components/memes/page';
 
 const getRandomColors = () => {
   const colorPalettes = [
@@ -204,6 +205,7 @@ export default function DashboardPage() {
       <Sidebar />
       <main className="flex-[0.65] p-6 flex flex-col gap-6 mt-3">
         <Levelbar key={levelbarKey} />
+        <MotivationalMeme />
         {renderSection("TODAY'S TASKS", (task) => task.dueDate === today && !task.status)}
         {renderSection("FUTURE TASKS", (task) => task.dueDate > today && !task.status)}
         {renderSection("PAST DUE TASKS", (task) => task.dueDate < today && !task.status)}
