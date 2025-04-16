@@ -45,7 +45,7 @@ export function TaskCard({ task, onToggle }: TaskItemProps) {
           >
             {task.title}
           </span>
-          <span className="text-sm text-red-800">Due: {task.dueDate}</span>
+          <span className="text-sm text-red-800">Due: {task.dueDate.split("T")[0]}</span>
         </div>
       </div>
       <div className="flex flex-col items-end text-right">
