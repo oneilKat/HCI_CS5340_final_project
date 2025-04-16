@@ -8,7 +8,8 @@ import { TaskCard } from "@/components/task-card/page";
 import { AchieveCard } from "@/components/achieve-card/page";
 import { Avatar } from "@heroui/react";
 import { getAvatarFromName } from "@/lib/avatars";
-import MotivationalMeme from '@/components/memes/page';
+import MotivationalMeme from "@/components/memes/page";
+import MotivationalQuote from "@/components/motivational-quote/page";
 import { ListChecks, Clock, AlertCircle, CheckCircle } from "lucide-react";
 
 const getRandomColors = () => {
@@ -235,7 +236,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="bg-white rounded-2xl shadow p-4">
-          <MotivationalMeme />
+          <MotivationalQuote />
         </div>
 
         {/* Achievements Section */}
