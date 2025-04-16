@@ -26,8 +26,8 @@ export default function Sidebar() {
   const navItems = [
     { href: "/", label: "Dashboard" },
     { href: "/achievements", label: "Achievements" },
-    { href: "/profile", label: "Profile" },
-    { href: "/leaderboard", label: "Leaderboard" }
+    { href: "/leaderboard", label: "Leaderboard" },
+    { href: "/profile", label: "Profile" }
   ];
 
   return (
