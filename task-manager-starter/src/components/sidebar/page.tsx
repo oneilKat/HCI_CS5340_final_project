@@ -32,6 +32,7 @@ export default function Sidebar() {
 
   return (
     <aside className="w-60 min-h-screen bg-slate-200 p-4 flex flex-col gap-2 shadow-md">
+      <h1 className="text-xl font-bold text-purple-600 px-3">QuestBoard</h1>
       {navItems.map(({ href, label }) => (
         <Link
           key={href}
