@@ -25,7 +25,6 @@ export default function Sidebar() {
 
   const navItems = [
     { href: "/", label: "Dashboard" },
-    { href: "/tasks", label: "Tasks" },
     { href: "/achievements", label: "Achievements" },
     { href: "/profile", label: "Profile" },
     { href: "/leaderboard", label: "Leaderboard" }
